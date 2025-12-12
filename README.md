@@ -56,20 +56,61 @@ The app listens on port 5000 by default (`http://127.0.0.1:5000`).
 
 ngrok lets you expose your local server to the public internet — useful for testing webhooks (Dialogflow, Twilio). When you run ngrok it creates a public URL that forwards requests to your local port.
 
-1. Install ngrok: download from https://ngrok.com/download and unzip.
+1. Install ngrok. Choose one of these CLI options depending on your platform:
 
-2. (Optional) Connect your account to get a persistent auth token:
-
-```powershell
-ngrok.exe authtoken <YOUR_NGROK_AUTHTOKEN>
-```
-
-3. Start ngrok to forward port 5000 (PowerShell):
+- Windows (winget):
 
 ```powershell
-# expose localhost:5000
-ngrok.exe http 5000
+winget install --id=Ngrok.Ngrok -e --source winget
 ```
+
+- Windows (Chocolatey):
+
+```powershell
+choco install ngrok
+```
+
+- Windows (Scoop):
+
+```powershell
+scoop bucket add extras
+scoop install ngrok
+```
+
+- Direct download (Windows PowerShell):
+
+```powershell
+Invoke-WebRequest -Uri "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip" -OutFile ngrok.zip
+Expand-Archive ngrok.zip -DestinationPath .
+```
+
+- macOS (Homebrew):
+
+```bash
+brew install --cask ngrok
+```
+
+- Linux (manual download):
+
+```bash
+curl -s -L https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz -o ngrok.tgz
+tar -xzf ngrok.tgz
+sudo mv ngrok /usr/local/bin/
+```
+
+2. (Optional) Connect your account to set an auth token (allows reserved subdomains and higher rate limits):
+
+```powershell
+ngrok authtoken <YOUR_NGROK_AUTHTOKEN>
+```
+
+3. Start ngrok to forward port 5000:
+
+```powershell
+ngrok http 5000
+```
+
+ngrok prints a public URL (for example `https://abcd1234.ngrok.io`) — use that as your webhook base URL (e.g. `https://abcd1234.ngrok.io/weather_alert`).
 
 4. ngrok prints a public URL like `https://abcd1234.ngrok.io`. Use that as your webhook base URL. For example, set your Dialogflow/Twilio webhook to:
 
